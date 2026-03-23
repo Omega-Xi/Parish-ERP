@@ -1,41 +1,72 @@
 import axiosInstance from './axiosConfig';
 
 export const dashboardAPI = {
-  getDashboardStats: () => {
-    return axiosInstance.get('/dashboard');
+  getDashboardStats: async () => {
+    try {
+      const response = await axiosInstance.get('/dashboard');
+      return response;
+    } catch (error) {
+      console.error('Error fetching dashboard stats:', error);
+      return { data: { totalFamilies: 0, totalMembers: 0, totalDonations: 0 } };
+    }
   },
   
-  getMonthlyDonations: (year, month) => {
-    return axiosInstance.get('/reports/monthly-donations', {
-      params: { year, month }
-    });
+  getMonthlyDonations: async (year, month) => {
+    try {
+      const response = await axiosInstance.get('/reports/monthly-donations', {
+        params: { year, month }
+      });
+      return response;
+    } catch (error) {
+      console.error('Error fetching monthly donations:', error);
+      return { data: [] };
+    }
   },
   
-  getYearlyDonations: (year) => {
-    return axiosInstance.get('/reports/yearly-donations', {
-      params: { year }
-    });
+  getMemberGrowth: async (period = 'monthly') => {
+    try {
+      const response = await axiosInstance.get('/reports/member-growth', {
+        params: { period }
+      });
+      return response;
+    } catch (error) {
+      console.error('Error fetching member growth:', error);
+      return { data: [] };
+    }
   },
   
-  getMemberGrowth: (period = 'monthly') => {
-    return axiosInstance.get('/reports/member-growth', {
-      params: { period }
-    });
+  getRecentActivities: async (limit = 10) => {
+    try {
+      const response = await axiosInstance.get('/dashboard/recent-activities', {
+        params: { limit }
+      });
+      return response;
+    } catch (error) {
+      console.error('Error fetching recent activities:', error);
+      return { data: [] };
+    }
   },
   
-  getRecentActivities: (limit = 10) => {
-    return axiosInstance.get('/dashboard/recent-activities', {
-      params: { limit }
-    });
+  getUpcomingEvents: async (limit = 5) => {
+    try {
+      const response = await axiosInstance.get('/dashboard/upcoming-events', {
+        params: { limit }
+      });
+      return response;
+    } catch (error) {
+      console.error('Error fetching upcoming events:', error);
+      return { data: [] };
+    }
   },
   
-  getUpcomingEvents: (limit = 5) => {
-    return axiosInstance.get('/dashboard/upcoming-events', {
-      params: { limit }
-    });
-  },
-  
-  getSacramentStats: () => {
-    return axiosInstance.get('/dashboard/sacrament-stats');
+  getSacramentStats: async () => {
+  try {
+    const response = await axiosInstance.get('/dashboard/sacrament-stats');
+    console.log('API Response:', response); // Add this
+    return response;
+  } catch (error) {
+    console.error('Error fetching sacrament stats:', error);
+    return { data: { baptisms: 0, communions: 0, confirmations: 0, marriages: 0, total: 0 } };
   }
+}
 };
