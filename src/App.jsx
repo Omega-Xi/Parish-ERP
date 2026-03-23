@@ -5,6 +5,7 @@ import { AlertProvider } from './context/AlertContext';
 import { useAuth } from './hooks/useAuth';
 import LoginPage from './pages/auth/LoginPage';
 import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
+import ContactPage from './pages/contact/ContactPage';
 import MainLayout from './components/layout/MainLayout/MainLayout';
 import DashboardPage from './pages/dashboard/DashboardPage';
 import ParishDetailsPage from './pages/parish/ParishDetailsPage';
@@ -49,6 +50,7 @@ function App() {
           {/* Public Routes */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           
           {/* Protected Routes */}
           <Route path="/" element={
