@@ -172,10 +172,22 @@ const DashboardPage = () => {
     queryFn: async () => {
       try {
         const response = await dashboardAPI.getDashboardTrends();
-        return response?.data || {
-          families: { positive: true, value: 100 },
-          members: { positive: true, value: 57 },
-          donations: { positive: false, value: 15 },
+        console.log('Trends response:', response);
+        
+        // The data is in response.data.data (nested)
+        const apiData = response?.data?.data || response?.data;
+        
+        console.log('Extracted trends data:', apiData);
+        
+        if (apiData && (apiData.families || apiData.members || apiData.donations || apiData.sacraments)) {
+          return apiData;
+        }
+        
+        // Fallback if no data
+        return {
+          families: { positive: true, value: 0 },
+          members: { positive: true, value: 0 },
+          donations: { positive: true, value: 0 },
           sacraments: { positive: true, value: 0 }
         };
       } catch (error) {

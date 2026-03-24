@@ -60,13 +60,32 @@ export const dashboardAPI = {
   },
   
   getSacramentStats: async () => {
-  try {
-    const response = await axiosInstance.get('/dashboard/sacrament-stats');
-    console.log('API Response:', response); // Add this
-    return response;
-  } catch (error) {
-    console.error('Error fetching sacrament stats:', error);
-    return { data: { baptisms: 0, communions: 0, confirmations: 0, marriages: 0, total: 0 } };
+    try {
+      const response = await axiosInstance.get('/dashboard/sacrament-stats');
+      console.log('API Response:', response);
+      return response;
+    } catch (error) {
+      console.error('Error fetching sacrament stats:', error);
+      return { data: { baptisms: 0, communions: 0, confirmations: 0, marriages: 0, total: 0 } };
+    }
+  },
+  
+  // ADD THIS NEW METHOD:
+  getDashboardTrends: async () => {
+    try {
+      const response = await axiosInstance.get('/dashboard/trends');
+      console.log('Trends API Response:', response);
+      return response;
+    } catch (error) {
+      console.error('Error fetching dashboard trends:', error);
+      return { 
+        data: { 
+          families: { positive: true, value: 0 }, 
+          members: { positive: true, value: 0 }, 
+          donations: { positive: true, value: 0 }, 
+          sacraments: { positive: true, value: 0 } 
+        } 
+      };
+    }
   }
-}
 };

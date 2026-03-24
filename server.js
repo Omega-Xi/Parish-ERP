@@ -10,41 +10,17 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Mock database
-// Mock database with historical data
 const db = {
   users: [
-    {
-      id: 1,
-      email: "admin@parish.com",
-      password: "password",
-      name: "Admin User",
-      role: "admin"
-    },
-    {
-      id: 2,
-      email: "secretary@parish.com",
-      password: "secretary123",
-      name: "Mary Johnson",
-      role: "secretary"
-    },
-    {
-      id: 3,
-      email: "priest@parish.com",
-      password: "priest123",
-      name: "Rev. Fr. John Doe",
-      role: "priest"
-    },
-    {
-      id: 4,
-      email: "treasurer@parish.com",
-      password: "treasurer123",
-      name: "Michael Brown",
-      role: "treasurer"
-    }
+    { id: 1, email: "admin@parish.com", password: "password", name: "Admin User", role: "admin" },
+    { id: 2, email: "secretary@parish.com", password: "secretary123", name: "Mary Johnson", role: "secretary" },
+    { id: 3, email: "priest@parish.com", password: "priest123", name: "Rev. Fr. John Doe", role: "priest" },
+    { id: 4, email: "treasurer@parish.com", password: "treasurer123", name: "Michael Brown", role: "treasurer" }
   ],
   
-  // Families with historical data (created over time)
+  // Families 2024-2026
   families: [
+    // 2024 Families (Jan-Apr)
     { id: 1, familyId: "F001", familyName: "Smith Family", address: "123 Main St", ward: "Ward 1", phone: "+1 (555) 123-4567", email: "smith@example.com", status: "active", memberCount: 4, createdAt: "2024-01-15" },
     { id: 2, familyId: "F002", familyName: "Johnson Family", address: "456 Oak Ave", ward: "Ward 2", phone: "+1 (555) 234-5678", email: "johnson@example.com", status: "active", memberCount: 3, createdAt: "2024-01-20" },
     { id: 3, familyId: "F003", familyName: "Williams Family", address: "789 Pine St", ward: "Ward 1", phone: "+1 (555) 345-6789", email: "williams@example.com", status: "active", memberCount: 5, createdAt: "2024-02-01" },
@@ -54,11 +30,24 @@ const db = {
     { id: 7, familyId: "F007", familyName: "Wilson Family", address: "147 Birch Ave", ward: "Ward 3", phone: "+1 (555) 789-0123", email: "wilson@example.com", status: "active", memberCount: 4, createdAt: "2024-03-10" },
     { id: 8, familyId: "F008", familyName: "Moore Family", address: "258 Spruce St", ward: "Ward 2", phone: "+1 (555) 890-1234", email: "moore@example.com", status: "active", memberCount: 2, createdAt: "2024-03-15" },
     { id: 9, familyId: "F009", familyName: "Taylor Family", address: "369 Walnut Ave", ward: "Ward 1", phone: "+1 (555) 901-2345", email: "taylor@example.com", status: "active", memberCount: 3, createdAt: "2024-03-20" },
-    { id: 10, familyId: "F010", familyName: "Anderson Family", address: "741 Cherry Ln", ward: "Ward 3", phone: "+1 (555) 012-3456", email: "anderson@example.com", status: "active", memberCount: 4, createdAt: "2024-03-25" }
+    { id: 10, familyId: "F010", familyName: "Anderson Family", address: "741 Cherry Ln", ward: "Ward 3", phone: "+1 (555) 012-3456", email: "anderson@example.com", status: "active", memberCount: 4, createdAt: "2024-03-25" },
+    
+    // 2025 Families
+    { id: 11, familyId: "F011", familyName: "Martinez Family", address: "852 Oak St", ward: "Ward 2", phone: "+1 (555) 111-2222", email: "martinez@example.com", status: "active", memberCount: 3, createdAt: "2025-02-10" },
+    { id: 12, familyId: "F012", familyName: "Garcia Family", address: "963 Pine Ave", ward: "Ward 1", phone: "+1 (555) 333-4444", email: "garcia@example.com", status: "active", memberCount: 4, createdAt: "2025-03-15" },
+    { id: 13, familyId: "F013", familyName: "Rodriguez Family", address: "741 Maple Dr", ward: "Ward 3", phone: "+1 (555) 555-6666", email: "rodriguez@example.com", status: "active", memberCount: 2, createdAt: "2025-04-20" },
+    { id: 14, familyId: "F014", familyName: "Lopez Family", address: "159 Cedar Rd", ward: "Ward 1", phone: "+1 (555) 777-8888", email: "lopez@example.com", status: "active", memberCount: 5, createdAt: "2025-06-05" },
+    { id: 15, familyId: "F015", familyName: "Gonzalez Family", address: "753 Birch Ln", ward: "Ward 2", phone: "+1 (555) 999-0000", email: "gonzalez@example.com", status: "active", memberCount: 3, createdAt: "2025-09-12" },
+    
+    // 2026 Families (Current Year)
+    { id: 16, familyId: "F016", familyName: "Perez Family", address: "357 Spruce St", ward: "Ward 3", phone: "+1 (555) 111-3333", email: "perez@example.com", status: "active", memberCount: 4, createdAt: "2026-01-15" },
+    { id: 17, familyId: "F017", familyName: "Sanchez Family", address: "246 Walnut Ave", ward: "Ward 1", phone: "+1 (555) 444-5555", email: "sanchez@example.com", status: "active", memberCount: 3, createdAt: "2026-02-20" },
+    { id: 18, familyId: "F018", familyName: "Ramirez Family", address: "135 Cherry Ln", ward: "Ward 2", phone: "+1 (555) 666-7777", email: "ramirez@example.com", status: "active", memberCount: 5, createdAt: "2026-03-10" }
   ],
   
-  // Members with varied ages and family associations
+  // Members 2024-2026
   members: [
+    // 2024 Members
     { id: 1, memberId: "M001", name: "John Smith", familyId: 1, familyName: "Smith Family", dateOfBirth: "1985-03-15", gender: "male", phone: "+1 (555) 123-4567", email: "john.smith@example.com", status: "active", age: 39, joinedDate: "2024-01-15" },
     { id: 2, memberId: "M002", name: "Mary Smith", familyId: 1, familyName: "Smith Family", dateOfBirth: "1987-07-22", gender: "female", phone: "+1 (555) 123-4567", email: "mary.smith@example.com", status: "active", age: 37, joinedDate: "2024-01-15" },
     { id: 3, memberId: "M003", name: "James Johnson", familyId: 2, familyName: "Johnson Family", dateOfBirth: "1990-11-10", gender: "male", phone: "+1 (555) 234-5678", email: "james.johnson@example.com", status: "active", age: 34, joinedDate: "2024-01-20" },
@@ -69,127 +58,122 @@ const db = {
     { id: 8, memberId: "M008", name: "Patricia Wilson", familyId: 7, familyName: "Wilson Family", dateOfBirth: "1980-06-14", gender: "female", phone: "+1 (555) 789-0123", email: "patricia.wilson@example.com", status: "active", age: 44, joinedDate: "2024-03-10" },
     { id: 9, memberId: "M009", name: "Thomas Moore", familyId: 8, familyName: "Moore Family", dateOfBirth: "1975-10-22", gender: "male", phone: "+1 (555) 890-1234", email: "thomas.moore@example.com", status: "active", age: 49, joinedDate: "2024-03-15" },
     { id: 10, memberId: "M010", name: "Jennifer Taylor", familyId: 9, familyName: "Taylor Family", dateOfBirth: "1988-04-05", gender: "female", phone: "+1 (555) 901-2345", email: "jennifer.taylor@example.com", status: "active", age: 36, joinedDate: "2024-03-20" },
-    { id: 11, memberId: "M011", name: "David Anderson", familyId: 10, familyName: "Anderson Family", dateOfBirth: "1993-08-12", gender: "male", phone: "+1 (555) 012-3456", email: "david.anderson@example.com", status: "active", age: 31, joinedDate: "2024-03-25" }
+    { id: 11, memberId: "M011", name: "David Anderson", familyId: 10, familyName: "Anderson Family", dateOfBirth: "1993-08-12", gender: "male", phone: "+1 (555) 012-3456", email: "david.anderson@example.com", status: "active", age: 31, joinedDate: "2024-03-25" },
+    
+    // 2025 Members
+    { id: 12, memberId: "M012", name: "Carlos Martinez", familyId: 11, familyName: "Martinez Family", dateOfBirth: "1985-07-15", gender: "male", phone: "+1 (555) 111-2222", email: "carlos.martinez@example.com", status: "active", age: 40, joinedDate: "2025-02-10" },
+    { id: 13, memberId: "M013", name: "Elena Martinez", familyId: 11, familyName: "Martinez Family", dateOfBirth: "1987-03-22", gender: "female", phone: "+1 (555) 111-2222", email: "elena.martinez@example.com", status: "active", age: 38, joinedDate: "2025-02-10" },
+    { id: 14, memberId: "M014", name: "Antonio Garcia", familyId: 12, familyName: "Garcia Family", dateOfBirth: "1990-11-10", gender: "male", phone: "+1 (555) 333-4444", email: "antonio.garcia@example.com", status: "active", age: 35, joinedDate: "2025-03-15" },
+    { id: 15, memberId: "M015", name: "Sofia Garcia", familyId: 12, familyName: "Garcia Family", dateOfBirth: "1992-08-20", gender: "female", phone: "+1 (555) 333-4444", email: "sofia.garcia@example.com", status: "active", age: 33, joinedDate: "2025-03-15" },
+    { id: 16, memberId: "M016", name: "Luis Rodriguez", familyId: 13, familyName: "Rodriguez Family", dateOfBirth: "1988-05-18", gender: "male", phone: "+1 (555) 555-6666", email: "luis.rodriguez@example.com", status: "active", age: 37, joinedDate: "2025-04-20" },
+    
+    // 2026 Members (Current Year)
+    { id: 17, memberId: "M017", name: "Maria Perez", familyId: 16, familyName: "Perez Family", dateOfBirth: "1991-09-25", gender: "female", phone: "+1 (555) 111-3333", email: "maria.perez@example.com", status: "active", age: 35, joinedDate: "2026-01-15" },
+    { id: 18, memberId: "M018", name: "Jose Perez", familyId: 16, familyName: "Perez Family", dateOfBirth: "1989-12-10", gender: "male", phone: "+1 (555) 111-3333", email: "jose.perez@example.com", status: "active", age: 37, joinedDate: "2026-01-15" },
+    { id: 19, memberId: "M019", name: "Ana Sanchez", familyId: 17, familyName: "Sanchez Family", dateOfBirth: "1993-04-12", gender: "female", phone: "+1 (555) 444-5555", email: "ana.sanchez@example.com", status: "active", age: 33, joinedDate: "2026-02-20" },
+    { id: 20, memberId: "M020", name: "Diego Sanchez", familyId: 17, familyName: "Sanchez Family", dateOfBirth: "1995-07-30", gender: "male", phone: "+1 (555) 444-5555", email: "diego.sanchez@example.com", status: "active", age: 31, joinedDate: "2026-02-20" },
+    { id: 21, memberId: "M021", name: "Carmen Ramirez", familyId: 18, familyName: "Ramirez Family", dateOfBirth: "1986-11-08", gender: "female", phone: "+1 (555) 666-7777", email: "carmen.ramirez@example.com", status: "active", age: 40, joinedDate: "2026-03-10" },
+    { id: 22, memberId: "M022", name: "Fernando Ramirez", familyId: 18, familyName: "Ramirez Family", dateOfBirth: "1988-02-14", gender: "male", phone: "+1 (555) 666-7777", email: "fernando.ramirez@example.com", status: "active", age: 38, joinedDate: "2026-03-10" }
   ],
   
-  // Rich sacrament data spanning multiple years
+  // Sacraments 2024-2026
   sacraments: [
-    // Baptisms (2023-2024)
-    { id: 1, memberId: 1, memberName: "John Smith", sacramentType: "baptism", date: "1985-04-20", priest: "Rev. Fr. Thomas", church: "St. Mary's Church", certificateNumber: "BAP-1985-001", year: 1985 },
-    { id: 2, memberId: 2, memberName: "Mary Smith", sacramentType: "baptism", date: "1987-08-10", priest: "Rev. Fr. Thomas", church: "St. Mary's Church", certificateNumber: "BAP-1987-002", year: 1987 },
-    { id: 3, memberId: 3, memberName: "James Johnson", sacramentType: "baptism", date: "1990-12-25", priest: "Rev. Fr. Thomas", church: "St. Mary's Church", certificateNumber: "BAP-1990-003", year: 1990 },
-    { id: 4, memberId: 4, memberName: "Sarah Williams", sacramentType: "baptism", date: "1992-05-20", priest: "Rev. Fr. Michael", church: "St. Mary's Church", certificateNumber: "BAP-1992-004", year: 1992 },
-    { id: 5, memberId: 5, memberName: "Robert Brown", sacramentType: "baptism", date: "1978-12-03", priest: "Rev. Fr. John", church: "St. Mary's Church", certificateNumber: "BAP-1978-005", year: 1978 },
-    { id: 6, memberId: 6, memberName: "Lisa Davis", sacramentType: "baptism", date: "1983-09-18", priest: "Rev. Fr. Thomas", church: "St. Mary's Church", certificateNumber: "BAP-1983-006", year: 1983 },
-    { id: 7, memberId: 7, memberName: "Michael Miller", sacramentType: "baptism", date: "1995-02-28", priest: "Rev. Fr. Michael", church: "St. Mary's Church", certificateNumber: "BAP-1995-007", year: 1995 },
-    { id: 8, memberId: 8, memberName: "Patricia Wilson", sacramentType: "baptism", date: "1980-06-14", priest: "Rev. Fr. John", church: "St. Mary's Church", certificateNumber: "BAP-1980-008", year: 1980 },
+    // 2024 Sacraments
+    { id: 1, memberId: 1, memberName: "John Smith", sacramentType: "baptism", date: "2024-01-20", priest: "Rev. Fr. Thomas", church: "St. Mary's Church", certificateNumber: "BAP-2024-001", year: 2024 },
+    { id: 2, memberId: 2, memberName: "Mary Smith", sacramentType: "communion", date: "2024-02-15", priest: "Rev. Fr. Michael", church: "St. Mary's Church", certificateNumber: "COM-2024-001", year: 2024 },
+    { id: 3, memberId: 7, memberName: "Michael Miller", sacramentType: "baptism", date: "2024-03-05", priest: "Rev. Fr. Thomas", church: "St. Mary's Church", certificateNumber: "BAP-2024-002", year: 2024 },
+    { id: 4, memberId: 3, memberName: "James Johnson", sacramentType: "confirmation", date: "2024-04-10", priest: "Rev. Fr. John", church: "St. Mary's Church", certificateNumber: "CON-2024-001", year: 2024 },
     
-    // First Communions
-    { id: 9, memberId: 2, memberName: "Mary Smith", sacramentType: "communion", date: "1995-05-20", priest: "Rev. Fr. Michael", church: "St. Mary's Church", certificateNumber: "COM-1995-001", year: 1995 },
-    { id: 10, memberId: 3, memberName: "James Johnson", sacramentType: "communion", date: "1998-04-10", priest: "Rev. Fr. Michael", church: "St. Mary's Church", certificateNumber: "COM-1998-002", year: 1998 },
-    { id: 11, memberId: 4, memberName: "Sarah Williams", sacramentType: "communion", date: "2000-06-15", priest: "Rev. Fr. John", church: "St. Mary's Church", certificateNumber: "COM-2000-003", year: 2000 },
-    { id: 12, memberId: 7, memberName: "Michael Miller", sacramentType: "communion", date: "2002-03-20", priest: "Rev. Fr. Thomas", church: "St. Mary's Church", certificateNumber: "COM-2002-004", year: 2002 },
+    // 2025 Sacraments
+    { id: 5, memberId: 12, memberName: "Carlos Martinez", sacramentType: "baptism", date: "2025-02-20", priest: "Rev. Fr. Thomas", church: "St. Mary's Church", certificateNumber: "BAP-2025-001", year: 2025 },
+    { id: 6, memberId: 13, memberName: "Elena Martinez", sacramentType: "communion", date: "2025-03-15", priest: "Rev. Fr. Michael", church: "St. Mary's Church", certificateNumber: "COM-2025-001", year: 2025 },
+    { id: 7, memberId: 14, memberName: "Antonio Garcia", sacramentType: "baptism", date: "2025-03-25", priest: "Rev. Fr. Thomas", church: "St. Mary's Church", certificateNumber: "BAP-2025-002", year: 2025 },
+    { id: 8, memberId: 16, memberName: "Luis Rodriguez", sacramentType: "confirmation", date: "2025-05-10", priest: "Rev. Fr. John", church: "St. Mary's Church", certificateNumber: "CON-2025-001", year: 2025 },
+    { id: 9, memberId: 15, memberName: "Sofia Garcia", sacramentType: "marriage", date: "2025-06-20", priest: "Rev. Fr. Thomas", church: "St. Mary's Church", certificateNumber: "MAR-2025-001", year: 2025, spouseName: "Antonio Garcia" },
     
-    // Confirmations
-    { id: 13, memberId: 1, memberName: "John Smith", sacramentType: "confirmation", date: "1995-05-15", priest: "Rev. Fr. Michael", church: "St. Mary's Church", certificateNumber: "CON-1995-001", year: 1995 },
-    { id: 14, memberId: 2, memberName: "Mary Smith", sacramentType: "confirmation", date: "2000-06-15", priest: "Rev. Fr. John", church: "St. Mary's Church", certificateNumber: "CON-2000-002", year: 2000 },
-    { id: 15, memberId: 3, memberName: "James Johnson", sacramentType: "confirmation", date: "2005-04-20", priest: "Rev. Fr. Thomas", church: "St. Mary's Church", certificateNumber: "CON-2005-003", year: 2005 },
-    { id: 16, memberId: 4, memberName: "Sarah Williams", sacramentType: "confirmation", date: "2008-09-10", priest: "Rev. Fr. Michael", church: "St. Mary's Church", certificateNumber: "CON-2008-004", year: 2008 },
-    
-    // Marriages
-    { id: 17, memberId: 1, memberName: "John Smith", sacramentType: "marriage", date: "2010-08-20", priest: "Rev. Fr. Thomas", church: "St. Mary's Church", certificateNumber: "MAR-2010-001", year: 2010, spouseName: "Mary Smith" },
-    { id: 18, memberId: 5, memberName: "Robert Brown", sacramentType: "marriage", date: "2005-06-10", priest: "Rev. Fr. John", church: "St. Mary's Church", certificateNumber: "MAR-2005-002", year: 2005, spouseName: "Sarah Brown" }
+    // 2026 Sacraments (Current Year)
+    { id: 10, memberId: 17, memberName: "Maria Perez", sacramentType: "baptism", date: "2026-01-25", priest: "Rev. Fr. Thomas", church: "St. Mary's Church", certificateNumber: "BAP-2026-001", year: 2026 },
+    { id: 11, memberId: 19, memberName: "Ana Sanchez", sacramentType: "communion", date: "2026-02-28", priest: "Rev. Fr. Michael", church: "St. Mary's Church", certificateNumber: "COM-2026-001", year: 2026 },
+    { id: 12, memberId: 21, memberName: "Carmen Ramirez", sacramentType: "baptism", date: "2026-03-15", priest: "Rev. Fr. Thomas", church: "St. Mary's Church", certificateNumber: "BAP-2026-002", year: 2026 }
   ],
   
-  // Monthly donation data for 2024 showing growth
+  // Donations 2024-2026
   donations: [
-    // January 2024
+    // 2024 Donations
     { id: 1, memberId: 1, memberName: "John Smith", amount: 500, type: "tithe", date: "2024-01-05", paymentMethod: "cash", receiptNumber: "RCP-2024-001", month: 1, year: 2024 },
     { id: 2, memberId: 2, memberName: "Mary Smith", amount: 300, type: "offertory", date: "2024-01-12", paymentMethod: "online", receiptNumber: "RCP-2024-002", month: 1, year: 2024 },
-    { id: 3, memberId: 3, memberName: "James Johnson", amount: 200, type: "tithe", date: "2024-01-19", paymentMethod: "cash", receiptNumber: "RCP-2024-003", month: 1, year: 2024 },
-    { id: 4, memberId: 4, memberName: "Sarah Williams", amount: 150, type: "offertory", date: "2024-01-26", paymentMethod: "check", receiptNumber: "RCP-2024-004", month: 1, year: 2024 },
+    { id: 3, memberId: 3, memberName: "James Johnson", amount: 200, type: "tithe", date: "2024-02-18", paymentMethod: "cash", receiptNumber: "RCP-2024-003", month: 2, year: 2024 },
+    { id: 4, memberId: 4, memberName: "Sarah Williams", amount: 150, type: "offertory", date: "2024-02-26", paymentMethod: "check", receiptNumber: "RCP-2024-004", month: 2, year: 2024 },
+    { id: 5, memberId: 7, memberName: "Michael Miller", amount: 400, type: "tithe", date: "2024-03-19", paymentMethod: "online", receiptNumber: "RCP-2024-005", month: 3, year: 2024 },
+    { id: 6, memberId: 8, memberName: "Patricia Wilson", amount: 600, type: "building", date: "2024-03-23", paymentMethod: "check", receiptNumber: "RCP-2024-006", month: 3, year: 2024 },
     
-    // February 2024
-    { id: 5, memberId: 1, memberName: "John Smith", amount: 550, type: "tithe", date: "2024-02-04", paymentMethod: "cash", receiptNumber: "RCP-2024-005", month: 2, year: 2024 },
-    { id: 6, memberId: 2, memberName: "Mary Smith", amount: 320, type: "offertory", date: "2024-02-11", paymentMethod: "online", receiptNumber: "RCP-2024-006", month: 2, year: 2024 },
-    { id: 7, memberId: 3, memberName: "James Johnson", amount: 220, type: "tithe", date: "2024-02-18", paymentMethod: "cash", receiptNumber: "RCP-2024-007", month: 2, year: 2024 },
-    { id: 8, memberId: 5, memberName: "Robert Brown", amount: 1000, type: "building", date: "2024-02-20", paymentMethod: "check", receiptNumber: "RCP-2024-008", month: 2, year: 2024 },
-    { id: 9, memberId: 4, memberName: "Sarah Williams", amount: 180, type: "offertory", date: "2024-02-25", paymentMethod: "cash", receiptNumber: "RCP-2024-009", month: 2, year: 2024 },
+    // 2025 Donations
+    { id: 7, memberId: 12, memberName: "Carlos Martinez", amount: 550, type: "tithe", date: "2025-02-10", paymentMethod: "cash", receiptNumber: "RCP-2025-001", month: 2, year: 2025 },
+    { id: 8, memberId: 13, memberName: "Elena Martinez", amount: 350, type: "offertory", date: "2025-02-20", paymentMethod: "online", receiptNumber: "RCP-2025-002", month: 2, year: 2025 },
+    { id: 9, memberId: 14, memberName: "Antonio Garcia", amount: 400, type: "tithe", date: "2025-03-15", paymentMethod: "cash", receiptNumber: "RCP-2025-003", month: 3, year: 2025 },
+    { id: 10, memberId: 16, memberName: "Luis Rodriguez", amount: 700, type: "building", date: "2025-04-20", paymentMethod: "check", receiptNumber: "RCP-2025-004", month: 4, year: 2025 },
+    { id: 11, memberId: 15, memberName: "Sofia Garcia", amount: 300, type: "offertory", date: "2025-05-10", paymentMethod: "cash", receiptNumber: "RCP-2025-005", month: 5, year: 2025 },
+    { id: 12, memberId: 1, memberName: "John Smith", amount: 600, type: "tithe", date: "2025-06-05", paymentMethod: "cash", receiptNumber: "RCP-2025-006", month: 6, year: 2025 },
     
-    // March 2024
-    { id: 10, memberId: 1, memberName: "John Smith", amount: 600, type: "tithe", date: "2024-03-03", paymentMethod: "cash", receiptNumber: "RCP-2024-010", month: 3, year: 2024 },
-    { id: 11, memberId: 2, memberName: "Mary Smith", amount: 350, type: "offertory", date: "2024-03-10", paymentMethod: "online", receiptNumber: "RCP-2024-011", month: 3, year: 2024 },
-    { id: 12, memberId: 3, memberName: "James Johnson", amount: 250, type: "tithe", date: "2024-03-17", paymentMethod: "cash", receiptNumber: "RCP-2024-012", month: 3, year: 2024 },
-    { id: 13, memberId: 6, memberName: "Lisa Davis", amount: 400, type: "tithe", date: "2024-03-19", paymentMethod: "online", receiptNumber: "RCP-2024-013", month: 3, year: 2024 },
-    { id: 14, memberId: 4, memberName: "Sarah Williams", amount: 200, type: "offertory", date: "2024-03-24", paymentMethod: "cash", receiptNumber: "RCP-2024-014", month: 3, year: 2024 },
-    { id: 15, memberId: 7, memberName: "Michael Miller", amount: 300, type: "tithe", date: "2024-03-26", paymentMethod: "cash", receiptNumber: "RCP-2024-015", month: 3, year: 2024 },
-    
-    // April 2024
-    { id: 16, memberId: 1, memberName: "John Smith", amount: 620, type: "tithe", date: "2024-04-07", paymentMethod: "cash", receiptNumber: "RCP-2024-016", month: 4, year: 2024 },
-    { id: 17, memberId: 2, memberName: "Mary Smith", amount: 380, type: "offertory", date: "2024-04-14", paymentMethod: "online", receiptNumber: "RCP-2024-017", month: 4, year: 2024 },
-    { id: 18, memberId: 3, memberName: "James Johnson", amount: 280, type: "tithe", date: "2024-04-21", paymentMethod: "cash", receiptNumber: "RCP-2024-018", month: 4, year: 2024 },
-    { id: 19, memberId: 8, memberName: "Patricia Wilson", amount: 500, type: "building", date: "2024-04-23", paymentMethod: "check", receiptNumber: "RCP-2024-019", month: 4, year: 2024 }
+    // 2026 Donations (Current Year)
+    { id: 13, memberId: 17, memberName: "Maria Perez", amount: 450, type: "tithe", date: "2026-01-20", paymentMethod: "cash", receiptNumber: "RCP-2026-001", month: 1, year: 2026 },
+    { id: 14, memberId: 18, memberName: "Jose Perez", amount: 350, type: "offertory", date: "2026-01-25", paymentMethod: "online", receiptNumber: "RCP-2026-002", month: 1, year: 2026 },
+    { id: 15, memberId: 19, memberName: "Ana Sanchez", amount: 500, type: "tithe", date: "2026-02-15", paymentMethod: "cash", receiptNumber: "RCP-2026-003", month: 2, year: 2026 },
+    { id: 16, memberId: 20, memberName: "Diego Sanchez", amount: 300, type: "offertory", date: "2026-02-22", paymentMethod: "online", receiptNumber: "RCP-2026-004", month: 2, year: 2026 },
+    { id: 17, memberId: 21, memberName: "Carmen Ramirez", amount: 600, type: "tithe", date: "2026-03-10", paymentMethod: "cash", receiptNumber: "RCP-2026-005", month: 3, year: 2026 },
+    { id: 18, memberId: 22, memberName: "Fernando Ramirez", amount: 400, type: "building", date: "2026-03-18", paymentMethod: "check", receiptNumber: "RCP-2026-006", month: 3, year: 2026 }
   ],
   
   // Dashboard with aggregated data
   dashboard: {
-    totalFamilies: 10,
-    totalMembers: 11,
-    totalDonations: 6420,
-    sacramentsThisYear: 0,
+    totalFamilies: 18,
+    totalMembers: 22,
+    totalDonations: 7600,
+    sacramentsThisYear: 3,
     recentActivities: [
-      { id: 1, description: "New family registered: Anderson Family", user: "Admin", time: "2 hours ago" },
-      { id: 2, description: "Donation received: $300 from Michael Miller", user: "Treasurer", time: "5 hours ago" },
-      { id: 3, description: "New member added: David Anderson", user: "Secretary", time: "1 day ago" },
-      { id: 4, description: "Marriage recorded: Robert and Sarah Brown", user: "Priest", time: "2 days ago" },
-      { id: 5, description: "First Communion for Michael Miller", user: "Priest", time: "3 days ago" },
-      { id: 6, description: "Donation received: $500 from Patricia Wilson", user: "Treasurer", time: "5 days ago" }
+      { id: 1, description: "New family registered: Ramirez Family", user: "Admin", time: "2 hours ago" },
+      { id: 2, description: "Donation received: $400 from Fernando Ramirez", user: "Treasurer", time: "5 hours ago" },
+      { id: 3, description: "Baptism recorded for Carmen Ramirez", user: "Priest", time: "1 day ago" },
+      { id: 4, description: "New member added: Fernando Ramirez", user: "Secretary", time: "2 days ago" },
+      { id: 5, description: "First Communion for Ana Sanchez", user: "Priest", time: "3 days ago" }
     ],
     upcomingEvents: [
-      { id: 1, title: "Sunday Mass", date: "2024-03-24", location: "Main Church", time: "10:00 AM" },
-      { id: 2, title: "Bible Study", date: "2024-03-25", location: "Parish Hall", time: "7:00 PM" },
-      { id: 3, title: "Youth Group Meeting", date: "2024-03-26", location: "Youth Center", time: "6:30 PM" },
-      { id: 4, title: "Choir Practice", date: "2024-03-27", location: "Church", time: "7:00 PM" },
-      { id: 5, title: "Easter Vigil Mass", date: "2024-03-30", location: "Main Church", time: "8:00 PM" }
+      { id: 1, title: "Sunday Mass", date: "2026-03-24", location: "Main Church", time: "10:00 AM" },
+      { id: 2, title: "Bible Study", date: "2026-03-25", location: "Parish Hall", time: "7:00 PM" },
+      { id: 3, title: "Youth Group Meeting", date: "2026-03-26", location: "Youth Center", time: "6:30 PM" },
+      { id: 4, title: "Easter Vigil Mass", date: "2026-03-30", location: "Main Church", time: "8:00 PM" },
+      { id: 5, title: "Easter Sunday Mass", date: "2026-03-31", location: "Main Church", time: "10:00 AM" }
     ],
     monthlyStats: {
-      families: { jan: 2, feb: 3, mar: 5, apr: 10 },
-      members: { jan: 3, feb: 4, mar: 6, apr: 11 },
-      donations: { jan: 1150, feb: 2270, mar: 2100, apr: 1780 }
+      families: { jan: 16, feb: 17, mar: 18 },
+      members: { jan: 19, feb: 21, mar: 22 },
+      donations: { jan: 800, feb: 800, mar: 1000 }
     }
   },
   
-  // Reports with month-by-month data showing growth
+  // Reports with month-by-month data
   reports: {
     monthlyDonations: [
-      { name: "Jan", value: 1150 },
-      { name: "Feb", value: 2270 },
-      { name: "Mar", value: 2100 },
-      { name: "Apr", value: 1780 },
+      { name: "Jan", value: 800 },
+      { name: "Feb", value: 800 },
+      { name: "Mar", value: 1000 },
+      { name: "Apr", value: 0 },
       { name: "May", value: 0 },
       { name: "Jun", value: 0 }
     ],
     memberGrowth: [
-      { period: "Jan", members: 3, newMembers: 3, families: 2 },
-      { period: "Feb", members: 4, newMembers: 1, families: 3 },
-      { period: "Mar", members: 7, newMembers: 3, families: 5 },
-      { period: "Apr", members: 11, newMembers: 4, families: 10 },
-      { period: "May", members: 11, newMembers: 0, families: 10 },
-      { period: "Jun", members: 11, newMembers: 0, families: 10 }
-    ],
-    familyGrowth: [
-      { period: "Jan", families: 2, growth: 0 },
-      { period: "Feb", families: 3, growth: 50 },
-      { period: "Mar", families: 5, growth: 66 },
-      { period: "Apr", families: 10, growth: 100 },
-      { period: "May", families: 10, growth: 0 },
-      { period: "Jun", families: 10, growth: 0 }
+      { period: "Jan", members: 19, newMembers: 2 },
+      { period: "Feb", members: 21, newMembers: 2 },
+      { period: "Mar", members: 22, newMembers: 1 },
+      { period: "Apr", members: 22, newMembers: 0 },
+      { period: "May", members: 22, newMembers: 0 },
+      { period: "Jun", members: 22, newMembers: 0 }
     ],
     donationTypes: [
-      { name: "Tithe", value: 3520 },
-      { name: "Offertory", value: 1780 },
-      { name: "Building", value: 1120 },
-      { name: "Charity", value: 0 },
+      { name: "Tithe", value: 3800 },
+      { name: "Offertory", value: 1900 },
+      { name: "Building", value: 1700 },
+      { name: "Charity", value: 200 },
       { name: "Other", value: 0 }
     ]
   },
@@ -266,6 +250,105 @@ app.get('/api/dashboard/sacrament-stats', (req, res) => {
       total
     }
   });
+});
+
+// ============ TRENDS ENDPOINT ============
+app.get('/api/dashboard/trends', (req, res) => {
+  try {
+    // Get current date
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = now.getMonth() + 1;
+    
+    // Calculate previous month
+    let previousMonth = currentMonth - 1;
+    let previousYear = currentYear;
+    if (previousMonth === 0) {
+      previousMonth = 12;
+      previousYear = currentYear - 1;
+    }
+    
+    // Get first day of current month and previous month
+    const currentMonthStart = new Date(currentYear, currentMonth - 1, 1);
+    const previousMonthStart = new Date(previousYear, previousMonth - 1, 1);
+    
+    // Families this month vs last month
+    const familiesThisMonth = db.families.filter(f => {
+      const createdDate = new Date(f.createdAt);
+      return createdDate >= currentMonthStart;
+    }).length;
+    
+    const familiesLastMonth = db.families.filter(f => {
+      const createdDate = new Date(f.createdAt);
+      return createdDate >= previousMonthStart && createdDate < currentMonthStart;
+    }).length;
+    
+    // Members this month vs last month
+    const membersThisMonth = db.members.filter(m => {
+      const joinedDate = new Date(m.joinedDate);
+      return joinedDate >= currentMonthStart;
+    }).length;
+    
+    const membersLastMonth = db.members.filter(m => {
+      const joinedDate = new Date(m.joinedDate);
+      return joinedDate >= previousMonthStart && joinedDate < currentMonthStart;
+    }).length;
+    
+    // Donations this month vs last month
+    const donationsThisMonth = db.donations
+      .filter(d => {
+        const donationDate = new Date(d.date);
+        return donationDate >= currentMonthStart;
+      })
+      .reduce((sum, d) => sum + d.amount, 0);
+    
+    const donationsLastMonth = db.donations
+      .filter(d => {
+        const donationDate = new Date(d.date);
+        return donationDate >= previousMonthStart && donationDate < currentMonthStart;
+      })
+      .reduce((sum, d) => sum + d.amount, 0);
+    
+    // Sacraments this year vs last year
+    const sacramentsThisYear = db.sacraments.filter(s => {
+      const sacramentDate = new Date(s.date);
+      return sacramentDate.getFullYear() === currentYear;
+    }).length;
+    
+    const sacramentsLastYear = db.sacraments.filter(s => {
+      const sacramentDate = new Date(s.date);
+      return sacramentDate.getFullYear() === currentYear - 1;
+    }).length;
+    
+    const calculateTrend = (current, previous) => {
+      if (previous === 0 && current === 0) return { positive: true, value: 0 };
+      if (previous === 0) return { positive: true, value: 100 };
+      const change = ((current - previous) / previous) * 100;
+      return {
+        positive: change >= 0,
+        value: Math.abs(Math.round(change))
+      };
+    };
+    
+    res.json({
+      data: {
+        families: calculateTrend(familiesThisMonth, familiesLastMonth),
+        members: calculateTrend(membersThisMonth, membersLastMonth),
+        donations: calculateTrend(donationsThisMonth, donationsLastMonth),
+        sacraments: calculateTrend(sacramentsThisYear, sacramentsLastYear)
+      }
+    });
+  } catch (error) {
+    console.error('Error calculating trends:', error);
+    res.status(500).json({ 
+      data: {
+        families: { positive: true, value: 0 },
+        members: { positive: true, value: 0 },
+        donations: { positive: true, value: 0 },
+        sacraments: { positive: true, value: 0 }
+      }
+    });
+  }
 });
 
 // ============ FAMILIES ENDPOINTS ============
