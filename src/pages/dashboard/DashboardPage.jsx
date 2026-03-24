@@ -21,6 +21,7 @@ import {
 } from 'react-icons/io5';
 import './DashboardPage.css';
 
+const currentYear = new Date().getFullYear();
 const DashboardPage = () => {
   const [dashboardStats, setDashboardStats] = useState({
     totalFamilies: 0,
@@ -98,10 +99,10 @@ const DashboardPage = () => {
 
   // Fetch monthly donations for chart
   const { data: donationsData } = useQuery({
-    queryKey: ['monthly-donations'],
+    queryKey: ['monthly-donations',currentYear],
     queryFn: async () => {
       try {
-        const response = await dashboardAPI.getMonthlyDonations(2024, 3);
+        const response = await dashboardAPI.getMonthlyDonations(currentYear);
         console.log('Monthly donations response:', response);
         // Handle different response structures
         let data = response?.data?.data || response?.data || [];
@@ -133,10 +134,10 @@ const DashboardPage = () => {
 
   // Fetch member growth data
   const { data: growthData } = useQuery({
-    queryKey: ['member-growth'],
+    queryKey: ['member-growth',currentYear],
     queryFn: async () => {
       try {
-        const response = await dashboardAPI.getMemberGrowth('monthly');
+        const response = await dashboardAPI.getMemberGrowth('monthly',currentYear);
         console.log('Member growth response:', response);
         // Handle different response structures
         let data = response?.data?.data || response?.data || [];
@@ -317,8 +318,8 @@ const DashboardPage = () => {
   ];
 
   // Debug: Log chart data
-  console.log('Monthly Donations Data:', monthlyDonations);
-  console.log('Member Growth Data:', memberGrowth);
+  // console.log('Monthly Donations Data:', monthlyDonations);
+  // console.log('Member Growth Data:', memberGrowth);
 
   if (statsLoading) {
     return (
@@ -380,11 +381,11 @@ const DashboardPage = () => {
         <DonationChart 
           data={monthlyDonations} 
           type="bar" 
-          title="Monthly Donations 2024" 
+          title={`Monthly Donations ${currentYear}`}
         />
         <MemberGrowthChart 
           data={memberGrowth} 
-          title="Member Growth 2024" 
+          title={`Member Growth ${currentYear}`} 
         />
       </div>
 
